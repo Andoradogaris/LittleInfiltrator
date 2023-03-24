@@ -20,6 +20,10 @@ public class Guard : MonoBehaviour
     private Animator anim;
     [SerializeField]
     private bool Fixed;
+    [SerializeField]
+    private GameObject aSign;
+    [SerializeField]
+    private GameObject lSign;
 
     private int currentWaypointIndex; // index of current waypoint
     private Transform currentWaypoint; // current waypoint being followed
@@ -32,6 +36,8 @@ public class Guard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lSign.SetActive(false);
+        aSign.SetActive(false);
         currentWaypointIndex = 0;
         if (!Fixed)
         {
@@ -89,6 +95,8 @@ public class Guard : MonoBehaviour
             DrawRaycast(player);
             if (!IsObstructed(player))
             {
+                lSign.SetActive(false);
+                aSign.SetActive(true);
                 StartCoroutine(player.GetComponent<PlayerController>().Die());
             }
         }
